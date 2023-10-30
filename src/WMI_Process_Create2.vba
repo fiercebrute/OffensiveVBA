@@ -1,5 +1,5 @@
 Sub AutoOpen()
-' Using this technique the new process will be spawned under “wmiprvse.exe” instead of the Office process.
+' Using this technique the new process will be spawned under "wmiprvse.exe" instead of the Office process.
 Const SW_NORMAL = 1
 strComputer = "."
 strCommand = "Notepad.exe" 
@@ -16,14 +16,15 @@ objConfig.ShowWindow = SW_NORMAL
 Set objProcess = objWMIService.Get("Win32_Process")
 intReturn = objProcess.Create _
     (strCommand, Null, objConfig, intProcessID)
-If intReturn <> 0 Then
-    Wscript.Echo "Process could not be created." & _
-        vbNewLine & "Command line: " & strCommand & _
-        vbNewLine & "Return value: " & intReturn
-Else
-    Wscript.Echo "Process created." & _
-        vbNewLine & "Command line: " & strCommand & _
-        vbNewLine & "Process ID: " & intProcessID
-End If
+' Wscript.Echo can't be called in VBA (Office)
+' If intReturn <> 0 Then
+'     Wscript.Echo "Process could not be created." & _
+'         vbNewLine & "Command line: " & strCommand & _
+'         vbNewLine & "Return value: " & intReturn
+' Else
+'     Wscript.Echo "Process created." & _
+'         vbNewLine & "Command line: " & strCommand & _
+'         vbNewLine & "Process ID: " & intProcessID
+' End If
 
 End Sub
